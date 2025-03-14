@@ -1,3 +1,6 @@
+## 1: Perform least square estimation. What is the mean of squared error?
+## 2: Add another row to X. What is Y? 
+
 import numpy as np
 
 def perform_linear_regression(X, Y):
