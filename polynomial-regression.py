@@ -4,12 +4,10 @@ import numpy as np
 from sklearn.preprocessing import PolynomialFeatures
 
 def polynomial_features(X, degree):
-    """Generate polynomial and interaction features up to the specified degree."""
     poly = PolynomialFeatures(degree)
     return poly.fit_transform(X)
 
 def perform_polynomial_regression(X, Y, degree):
-    """Performs polynomial regression to fit a model and calculate the mean squared error."""
     X_poly = polynomial_features(X, degree)
     theta = np.linalg.inv(X_poly.T @ X_poly) @ X_poly.T @ Y
     Y_pred = X_poly @ theta
@@ -17,7 +15,6 @@ def perform_polynomial_regression(X, Y, degree):
     return mse, theta
 
 def predict_new_participants(theta, new_X, degree):
-    """Predict outcomes using the polynomial model coefficients and the specified degree."""
     new_X_poly = polynomial_features(new_X, degree)
     predicted_scores = new_X_poly @ theta
     return predicted_scores
