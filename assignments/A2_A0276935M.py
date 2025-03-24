@@ -3,7 +3,6 @@ from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder, PolynomialFeatures
 from sklearn.linear_model import Ridge
-from numpy.linalg import inv
 
 def A2_A0276935M(N):
     iris = load_iris()
@@ -19,25 +18,27 @@ def A2_A0276935M(N):
     Ptrain_list = []
     Ptest_list = []
     w_list = []
-    error_train_array = np.zeros(10)
-    error_test_array = np.zeros(10)
+    error_train_array = np.zeros(7)
+    error_test_array = np.zeros(7)
   
-    def ridge_regression(X, y, alpha=0.0001):
-        I = np.eye(X.shape[1])
-        return inv(X.T @ X + alpha * I) @ X.T @ y
-
-    for order in range(1, 11):
-        poly = PolynomialFeatures(order)
+    for order in range(1, 8):
+        poly = PolynomialFeatures(order, include_bias=True)
         Ptrain = poly.fit_transform(X_train)
         Ptest = poly.transform(X_test)
         Ptrain_list.append(Ptrain)
         Ptest_list.append(Ptest)
 
-        if Ptrain.shape[0] <= Ptrain.shape[1]:
-            # Dual form of Ridge Regression
-            w = ridge_regression(Ptrain, Ytr)
-        else:
-            # Primal form of Ridge Regression
-            w = ridge_regression(Ptrain, Ytr)
-
+        ridge_reg = Ridge(alpha=0.001)
+        ridge_reg.fit(Ptrain, Ytr)
+        w = ridge_reg.coef_
         w_list.append(w)
+
+        y_train_pred = np.argmax(Ptrain @ w.T, axis=1)
+        y_test_pred = np.argmax(Ptest @ w.T, axis=1)
+
+        error_train_array[order - 1] = np.sum(y_train_pred != y_train)
+        error_test_array[order - 1] = np.sum(y_test_pred != y_test)
+
+    return (X_train, y_train, X_test, y_test, Ytr, Yts,
+            Ptrain_list, Ptest_list, w_list, 
+            error_train_array, error_test_array)
