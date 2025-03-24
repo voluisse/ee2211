@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder, PolynomialFeatures
 from sklearn.linear_model import Ridge
 
-def A2_A0276935M(N):
+def A2_MatricNumber(N):
     iris = load_iris()
     X = iris.data
     y = iris.target
@@ -20,25 +20,23 @@ def A2_A0276935M(N):
     w_list = []
     error_train_array = np.zeros(7)
     error_test_array = np.zeros(7)
-  
+
     for order in range(1, 8):
-        poly = PolynomialFeatures(order, include_bias=True)
+        poly = PolynomialFeatures(degree=order, include_bias=False)
         Ptrain = poly.fit_transform(X_train)
         Ptest = poly.transform(X_test)
+        
         Ptrain_list.append(Ptrain)
         Ptest_list.append(Ptest)
 
-        ridge_reg = Ridge(alpha=0.001)
-        ridge_reg.fit(Ptrain, Ytr)
-        w = ridge_reg.coef_
+        ridge = Ridge(alpha=0.001)
+        ridge.fit(Ptrain, Ytr)
+        w = ridge.coef_
         w_list.append(w)
 
-        y_train_pred = np.argmax(Ptrain @ w.T, axis=1)
-        y_test_pred = np.argmax(Ptest @ w.T, axis=1)
-
+        y_train_pred = np.argmax(ridge.predict(Ptrain), axis=1)
+        y_test_pred = np.argmax(ridge.predict(Ptest), axis=1)
         error_train_array[order - 1] = np.sum(y_train_pred != y_train)
         error_test_array[order - 1] = np.sum(y_test_pred != y_test)
-
-    return (X_train, y_train, X_test, y_test, Ytr, Yts,
-            Ptrain_list, Ptest_list, w_list, 
-            error_train_array, error_test_array)
+        
+    return X_train, y_train, X_test, y_test, Ytr, Yts, Ptrain_list, Ptest_list, w_list, error_train_array, error_test_array
