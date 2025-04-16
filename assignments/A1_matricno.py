@@ -2,7 +2,7 @@ import numpy as np
 
 
 # Please replace "MatricNumber" with your actual matric number here and in the filename
-def A1_A0276935M(X, y):
+def A1_matricno(X, y):
     """
     Input type
     :X type: numpy.ndarray
