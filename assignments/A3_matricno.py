@@ -1,6 +1,6 @@
 import numpy as np
 # Please replace "StudentMatriculationNumber" with your actual matric number here and in the filename
-def A3_A0276935M(learning_rate, num_iters):
+def A3_matricno(learning_rate, num_iters):
     """
     Input type
     :learning_rate type: float
