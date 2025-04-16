@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder, PolynomialFeatures
 from sklearn.linear_model import Ridge
 
-def A2_A0276935M(N):
+def A2_matricno(N):
     iris = load_iris()
     X = iris.data
     y = iris.target
