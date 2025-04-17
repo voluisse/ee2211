@@ -1,7 +1,7 @@
 import numpy as np
 
 # Please replace "MatricNumber" with your actual matric number
-def A3_A0276935M(learning_rate, num_iters):
+def A3_matricno(learning_rate, num_iters):
     """
     Input type
     :learning_rate type: float
