@@ -1,10 +1,10 @@
 # Prints root, number of samples
 # adjust threshold & max_depth
-# Depth 0: Number of samples = 10
+# Depth 0: Number of samples = ...
 # At depth 0:
-##  (x < 3) -> 4 samples, mse = 4.3619
-## (x > 3) -> 6 samples, mse = 6.3667
-## Overall mse after split = 5.5648
+##  (x < 3) -> 4 samples, mse = ...
+## (x > 3) -> 6 samples, mse = ...
+## Overall mse after split = 5.5648 <- AFTER SPLIT
 
 import numpy as np
 
